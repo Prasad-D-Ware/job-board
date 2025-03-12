@@ -31,7 +31,11 @@ import { FaFileUpload } from 'react-icons/fa';
 import Image from 'next/image';
 import { X } from 'lucide-react';
 
-export const AddProject = () => {
+interface AddProjectsProp {
+  onClose?: () => void;
+}
+
+export const AddProject = ({ onClose }: AddProjectsProp) => {
   const form = useForm<projectSchemaType>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
@@ -133,6 +137,7 @@ export const AddProject = () => {
       });
       setPreviewImg(null);
       form.reset(form.formState.defaultValues);
+      onClose?.();
     } catch (_error) {
       toast({
         title: 'Something went wrong while Adding Projects',

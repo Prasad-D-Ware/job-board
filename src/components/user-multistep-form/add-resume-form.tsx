@@ -7,7 +7,11 @@ import { uploadFileAction } from '@/actions/upload-to-cdn';
 import { addUserResume } from '@/actions/user.profile.actions';
 import { LoadingSpinner } from '../loading-spinner';
 
-export const AddResume = () => {
+interface AddResumeProps {
+  onClose?: () => void;
+}
+
+export const AddResume = ({ onClose }: AddResumeProps) => {
   const resumeFileRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
@@ -84,6 +88,7 @@ export const AddResume = () => {
             variant: 'destructive',
           });
         }
+        onClose?.();
         return toast({
           title: response.message,
           variant: 'success',

@@ -54,6 +54,7 @@ const forms = [
 export default function VerticalLinearStepper() {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -111,7 +112,7 @@ export default function VerticalLinearStepper() {
             <StepContent>
               {form.description}
               <Box sx={{ mb: 2 }}>
-                <Dialog>
+                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogTrigger asChild>
                     <Button
                       variant="contained"
@@ -126,7 +127,7 @@ export default function VerticalLinearStepper() {
                       <DialogTitle>{form.label}</DialogTitle>
                     </DialogHeader>
                     <div className="flex-grow overflow-y-auto px-6 pb-6">
-                      <form.component />
+                      <form.component onClose={() => setIsDialogOpen(false)} />
                     </div>
                   </DialogContent>
                 </Dialog>

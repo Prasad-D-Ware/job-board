@@ -31,7 +31,11 @@ import { useToast } from '../ui/use-toast';
 import { LoadingSpinner } from '../loading-spinner';
 import { useState } from 'react';
 
-export const AddExperience = () => {
+interface AddExperienceProps {
+  onClose?: () => void;
+}
+
+export const AddExperience = ({ onClose }: AddExperienceProps) => {
   const form = useForm<expFormSchemaType>({
     resolver: zodResolver(expFormSchema),
     defaultValues: {
@@ -65,6 +69,7 @@ export const AddExperience = () => {
         variant: 'success',
       });
       form.reset(form.formState.defaultValues);
+      onClose?.();
     } catch (_error) {
       toast({
         title: 'Something went wrong while Adding Experience',
